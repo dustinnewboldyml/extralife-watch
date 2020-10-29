@@ -72,9 +72,9 @@ const write = (stat, file, overwrite) => {
 	log(`Writing to file: ${file} – ${stat} – overwrite ${overwrite}`, 0);
 
 	if ( overwrite ) {
-		fs.writeFile(`./outputs/${file}.txt`, stat || '', () => {});
+		fs.writeFile(`./outputs/${file}.txt`, '' + stat, () => {});
 	} else {
-		fs.appendFile(`./outputs/${file}.txt`, '\n' + stat || '', () => {});
+		fs.appendFile(`./outputs/${file}.txt`, '\n' + stat, () => {});
 	}
 }
 

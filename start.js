@@ -1,9 +1,11 @@
-const player = require('play-sound')(opts = {})
+let player = require('play-sound');
 
 const el = require('./extralife');
 const log = require('./log');
 const config = require('./config');
 const chat = require('./chat.js');
+
+if ( config.alerts ) player = player(opts = {});
 
 log('Running ExtraLife scripts!');
 log(config, 0);
@@ -31,7 +33,7 @@ const tick = () => {
 					}
 				})
 
-				if ( ! config.noSounds ) {
+				if ( config.alerts ) {
 					// Use simple notification instead
 					player.play('./assets/donation.mp3');
 				}
@@ -46,12 +48,11 @@ setInterval(tick, config.interval);
 tick();
 
 // handle chats
-// el.write('', 'chat'); // clear chat file
-// chat.connect();
-// chat.on('message', (channel, tags, message, self) => {
-//     el.write(`${channel}\n(${tags['display-name']}) ${message}\n`, 'chat', false);
-//     // log(`[${new Date().toLocaleTimeString()}] [${channel}] (${tags['display-name']}) ${message}`);
-// });
+el.write('', 'chat'); // clear chat file
+chat.connect();
+chat.on('message', (channel, tags, message, self) => {
+    el.write(`${channel}\n(${tags['display-name']}) ${message}\n`, 'chat', false);
+});
 
 setInterval(() => {
 	const moment = require('moment');

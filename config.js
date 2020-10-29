@@ -1,7 +1,7 @@
 const interval = 10 * 1000; // 10 seconds
-const noSounds = process.env.npm_config_nosound || false;
+const alerts = process.env.npm_config_alerts || false;
 
 module.exports = {
     interval,
-    noSounds
+    alerts
 };
