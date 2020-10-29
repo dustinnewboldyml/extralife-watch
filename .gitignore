@@ -1,0 +1,5 @@
+outputs/*.txt
+outputs/*.mp3
+
+node_modules
+.DS_Store
