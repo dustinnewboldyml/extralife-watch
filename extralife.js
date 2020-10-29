@@ -82,5 +82,3 @@ module.exports = {
 	check: check,
 	write: write
 }
-
-console.log(process.env);
