@@ -17,6 +17,7 @@ const tick = () => {
 
 			// Update stats if needed
 			if ( donations.new.length > 0 ) {
+				const newDisplayName = donations.new[0].displayName || 'Anonymous';
 				log('New donations! Updating files', 0);
 				el.write(`\$${donations.stats.total}`, 'total-donated');
 				el.write(donations.stats.donators, 'total-donators');
@@ -24,12 +25,12 @@ const tick = () => {
 				el.write(`\$${donations.stats.average}`, 'average-donation');
 				el.write(`\$${donations.new[0].amount}`, 'latest-amount');
 				el.write(donations.new[0].message || '', 'latest-message');
-				el.write(donations.new[0].displayName, 'latest-name');
-				el.write(`${donations.new[0].displayName} – \$${donations.new[0].amount}`, 'latest-combined');
+				el.write(newDisplayName, 'latest-name');
+				el.write(`${newDisplayName} – \$${donations.new[0].amount}`, 'latest-combined');
 
 				donations.new.map(donation => {
 					if ( donation.message ) {
-						el.write(`#donation (${donation.displayName}) ${donation.message}`, 'chat', false);
+						el.write(`#donation (${donation.displayName || 'Anonymous'}) ${donation.message}`, 'chat', false);
 					}
 				})
 
