@@ -5,7 +5,7 @@ This project will connect to extralife with a provided team ID
 After downloading this codebase, run `npm install` (or `yarn`). This will install all required dependencies
 
 ## Configuration
-1. Create a new file in the root of the application named `config.js`.
+1. Create a new file in the `config` directory. Name the file: `config.js`.
 2. Copy the contents of `config.example.js` into `config.js`.
 3. Update the `teamID` and `channels` to their appropriate settings.
 
