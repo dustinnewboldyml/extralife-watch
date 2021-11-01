@@ -13,7 +13,7 @@ module.exports = {
 	 * will see your team ID in the URL of the team page. Example URL looks like:
 	 * https://www.extra-life.org/index.cfm?fuseaction=donorDrive.team&teamID=12345
 	 *
-	 * In the above example, the team ID is 12345.
+	 * In the example URL above, the team ID is 12345.
 	 */
 	teamID: 12345,
 
