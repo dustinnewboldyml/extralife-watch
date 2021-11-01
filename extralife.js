@@ -1,9 +1,9 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
 const log = require('./log');
+const config = require('./config');
 
-const teamID = 52474;
-const teamUrl = `https://www.extra-life.org/api/teams/${teamID}/donations`;
+const teamUrl = `https://www.extra-life.org/api/teams/${config.teamID}/donations`;
 
 let prevDonations = [];
 
