@@ -46,13 +46,14 @@ Zones utilize an object notation for determining the start and end of every zone
 }
 ```
 
-**Example: Empty Zone Array**
+#### Example: Empty Zone Array
 ```js
 zones: []
 ```
 When using an empty zone array, the timer will display elapsed during only while the application is running. For example, if you start the application and the application has been running for 4 hours and 12 minutes, it will output `04:12:00`. If you close the application, restart your computer, or the application happens to crash, when you restart the application, it will start back from `00:00:00`.
 
-**Example: Using Zones**
+
+#### Example: Using Zones
 Suppose you are planning on running the application from noon on November 6, 2021 until midnight, and then again using the same times but on November 7th. You may have your zones set up as such:
 ```js
 zones: [
