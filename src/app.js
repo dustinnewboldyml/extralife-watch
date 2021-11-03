@@ -39,8 +39,8 @@ const tick = () => {
 					firstRun = false;
 					log(`Total Donated: \$${donations.stats.total}`);
 					log(`Average Donations: \$${donations.stats.average}`);
-					log(`Total Donators: \$${donations.stats.donators}`);
-					log(`Total Donations: \$${donations.stats.donations}`);
+					log(`Total Donators: ${donations.stats.donators}`);
+					log(`Total Donations: ${donations.stats.donations}`);
                     setTimeout(tick, config.interval * 1000);
 					return;
 				}
