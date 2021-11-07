@@ -72,6 +72,16 @@ const defaults = {
 	verbose: false,
 
 	/**
+	 * Sets whether or not the timestamps are output for every system output.
+	 * Timestamps show up as at the beginning of each system output. If the value
+	 * is set to false, it won't display any timestamp. If the value is true, the
+	 * default format is used (h:mm:ss A). You can also specify a format to use as
+	 * a string format. Refer to this page for format definitions:
+	 * https://momentjscom.readthedocs.io/en/latest/moment/04-displaying/01-format/
+	 */
+	 timestamp: true,
+
+	/**
 	 * Enables the timer
 	 */
 	timer: {

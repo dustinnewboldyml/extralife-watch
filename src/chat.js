@@ -38,14 +38,14 @@ module.exports = (el) => {
 		});
 		client.on('join', (channel, _, self) => {
 			if (self) {
-				log(`Joined channel: ${coloredChannel(channel)}`, 2);
+				log(`Joined channel: ${coloredChannel(channel)}`, 1);
 			}
 		});
 		client.on('cheer', (channel, _, message) => {
-			log(`${coloredChannel(channel)} **CHEER**: ${message}`, 2);
+			log(`${coloredChannel(channel)} **CHEER**: ${message}`, 1);
 		});
 		client.on('notice', (channel, _, message) => {
-			log(`Channel Notice ${coloredChannel(channel)}: ${message}`, 2);
+			log(`Channel Notice ${coloredChannel(channel)}: ${message}`, 1);
 		});
 		client.on('message', (channel, tags, message, self) => {
 			const output = `${coloredChannel(channel)} \x1b[36m${tags['display-name']}\x1b[0m: ${message}`;
