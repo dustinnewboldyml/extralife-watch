@@ -101,9 +101,9 @@ module.exports = (el) => {
 			log(`${username} subscribed to ${coloredChannel(channel)}${message ? `: ${message}` : ''}`, 1);
 		});
 		client.on('message', (channel, tags, message, self) => {
-			// const output = `${coloredChannel(channel)} \x1b[36m${tags['display-name']}\x1b[0m: ${message}`;
-			// el.write(output, 'chat', false, false);
-			// log(output, 1);
+			const output = `${coloredChannel(channel)} \x1b[36m${tags['display-name']}\x1b[0m: ${message}`;
+			el.write(output, 'chat', false, false);
+			log(output, 1);
 		});
 		client.on('raw_message', (messageCloned, message) => {
 			log(messageCloned, 4);
