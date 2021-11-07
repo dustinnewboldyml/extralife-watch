@@ -87,7 +87,7 @@ const write = (stat, file, overwrite, output) => {
 	if (output === undefined) output = true;
 
 	if (output || config.verbose === 3) {
-		log(`Writing to file: ${file} – ${stat} – overwrite ${overwrite}`, 2);
+		log(`Writing to file: ${file} – ${stat} – overwrite ${overwrite}`, 3);
 	}
 
 	if (overwrite) {
