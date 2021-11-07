@@ -74,6 +74,11 @@ const defaults = {
 	verbose: 1,
 
 	/**
+	 * Enables or disables the use of colors in the console
+	 */
+	logColors: true,
+
+	/**
 	 * Sets whether or not the timestamps are output for every system output.
 	 * Timestamps show up as at the beginning of each system output. If the value
 	 * is set to false, it won't display any timestamp. If the value is true, the

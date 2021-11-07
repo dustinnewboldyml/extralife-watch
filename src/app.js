@@ -13,6 +13,14 @@ let firstRun = true;
 log('Running ExtraLife scripts!');
 log(config, 3);
 
+const logColor = (colorNumber, output) => {
+	if ( config.logColors ) {
+		return `\x1b[${colorNumber}m${output}\x1b[0m`;
+	}
+
+	return output;
+};
+
 const tick = () => {
 	el.check()
 		.then((donations) => {
@@ -69,22 +77,22 @@ const tick = () => {
 					// Output the final message into chat
 					log(
 						`
-\x1b[33m        ██████████\x1b[0m
-\x1b[33m    ██████      ██████\x1b[0m
-\x1b[33m  ████    ░░░░░░░░░░████\x1b[0m       \x1b[36m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[0m
-\x1b[33m  ██  ░░░░  ░░░░██░░░░██\x1b[0m              \x1b[36mNEW DONATION\x1b[0m
-\x1b[33m████  ░░░░  ░░░░██░░░░████\x1b[0m     \x1b[36m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[0m
-\x1b[33m██  ░░░░░░  ░░░░██░░░░░░██\x1b[0m
-\x1b[33m██  ░░░░░░  ░░░░██░░░░░░██\x1b[0m     \$${amount}
-\x1b[33m██  ░░░░░░  ░░░░██░░░░░░██\x1b[0m     ${name} ➤ ${donation.recipientName}
-\x1b[33m██  ░░░░░░  ░░░░██░░░░░░██\x1b[0m     ${message}
-\x1b[33m██  ░░░░░░  ░░░░██░░░░░░██\x1b[0m
-\x1b[33m██  ░░░░░░  ░░░░██░░░░░░██\x1b[0m
-\x1b[33m████  ░░░░  ░░░░██░░░░████\x1b[0m     Total: \$${donations.stats.total}
-\x1b[33m  ██  ░░░░████████░░░░██\x1b[0m       Average: \$${donations.stats.average}
-\x1b[33m  ████  ░░░░░░░░░░░░███\x1b[0m        Total Donations: ${donations.stats.donations}
-\x1b[33m    ██████░░░░░░█████\x1b[0m
-\x1b[33m        ██████████\x1b[0m`,
+${logColor(33, `        ██████████`)}
+${logColor(33, `    ██████      ██████`)}
+${logColor(33, `  ████    ░░░░░░░░░░████`)}       ${logColor(36, `~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`)}
+${logColor(33, `  ██  ░░░░  ░░░░██░░░░██`)}              ${logColor(36, `NEW DONATION`)}
+${logColor(33, `████  ░░░░  ░░░░██░░░░████`)}     ${logColor(36, `~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`)}
+${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}
+${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}     \$${amount}
+${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}     ${name} ➤ ${donation.recipientName}
+${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}     ${message}
+${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}
+${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}
+${logColor(33, `████  ░░░░  ░░░░██░░░░████`)}     Total: \$${donations.stats.total}
+${logColor(33, `  ██  ░░░░████████░░░░██`)}       Average: \$${donations.stats.average}
+${logColor(33, `  ████  ░░░░░░░░░░░░███`)}        Total Donations: ${donations.stats.donations}
+${logColor(33, `    ██████░░░░░░█████`)}
+${logColor(33, `        ██████████`)}`,
 						1
 					);
 				});
@@ -98,7 +106,7 @@ const tick = () => {
 			setTimeout(tick, config.interval * 1000);
 		})
 		.catch((error) => {
-			log(`\x1b[31m${error}\x1b[0m \x1b[33m– Will retry in ${config.retry} seconds\x1b[0m`);
+			log(`${logColor(31, error)} ${logColor(33, `– Will retry in ${config.retry} seconds`)}`);
 			setTimeout(tick, config.retry * 1000);
 		});
 };

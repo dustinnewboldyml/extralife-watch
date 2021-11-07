@@ -4,6 +4,14 @@ const log = require('./log');
 
 const knownTwitchBots = require('./chat-known-bots');
 
+const logColor = (colorNumber, output) => {
+	if ( config.logColors ) {
+		return `\x1b[${colorNumber}m${output}\x1b[0m`;
+	}
+
+	return output;
+};
+
 module.exports = (el) => {
 	const channelStats = {};
 
@@ -29,7 +37,7 @@ module.exports = (el) => {
 			const channelIndex = config.channels.indexOf(channel);
 			const chatColor = channelIndex % chatColors.length;
 
-			if ( channelIndex >= 0 ) {
+			if ( channelIndex >= 0 && config.logColors ) {
 				return `${chatColors[chatColor]}${channel}${chatColorClear}`;
 			} else {
 				return channel;
@@ -43,7 +51,7 @@ module.exports = (el) => {
 			log(`Connected to Twitch IRC @ ${address}:${port}`, 2);
 		});
 		client.on('disconnected', (reason) => {
-			log(`Disconnected from Twitch IRC. \x1b[31m${reason}\x1b[0m`, 2);
+			log(`Disconnected from Twitch IRC. ${logColor(31, reason)}`, 2);
 		});
 		client.on('join', (channel, username, self) => {
 			if ( ! channelStats[channel] ) channelStats[channel] = { active: 0, bots: 0 };
@@ -101,7 +109,7 @@ module.exports = (el) => {
 			log(`${username} subscribed to ${coloredChannel(channel)}${message ? `: ${message}` : ''}`, 1);
 		});
 		client.on('message', (channel, tags, message, self) => {
-			const output = `${coloredChannel(channel)} \x1b[36m${tags['display-name']}\x1b[0m: ${message}`;
+			const output = `${coloredChannel(channel)} ${logColor(36, tags['display-name'])}: ${message}`;
 			el.write(output, 'chat', false, false);
 			log(output, 1);
 		});

@@ -17,6 +17,10 @@ module.exports = (text, level) => {
 	const date = moment().format(timestampFormat);
 
 	if (level <= verbose) {
-		console.log(`\x1b[36m[${date}]\x1b[0m`, text);
+		if ( config.logColors ) {
+			console.log(`\x1b[36m[${date}]\x1b[0m`, text);
+		} else {
+			console.log(`[${date}]`, text);
+		}
 	}
 };
