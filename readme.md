@@ -23,7 +23,7 @@ There are several configuration options that are not displayed in the example co
 | `interval` | 10 | Number | Setting this will set the interval for which the application will ping the ExtraLife API servers. Represented in seconds.
 | `retry` | 60 | Number | If the API call falls, this is how many seconds until the next API call is attempted.
 | `timestamp` | true | Boolean or string | If this is set to `true`, this will use display timestamp information for every log message. If this is set to `false`, it does not. If this is set to a string, it will format the `timestamp` with the provided format. See [this link](https://momentjscom.readthedocs.io/en/latest/moment/04-displaying/01-format/) for formating options. By default, the format is `h:mm:ss A`. This outputs a time similar to `10:49:46 AM`.
-| `verbose` | 1 | Number | Determines the amount of information is output to the log while the application is running.<br/><br/>`0` = Minimal output<br/>`1` = Useful information (chat, donations, etc.)<br/>`2` = Verbose logging, including connection information.<br/>`3` = Complete debug information, including API responses
+| `verbose` | 1 | Number | Determines the amount of information is output to the log while the application is running.<br/><br/>`0` = Minimal output<br/>`1` = Useful information (chat, donations, etc.)<br/>`2` = Verbose logging, including connection information.<br/>`3` = Debug information, including API responses<br/>`4` = Increased debugging, including raw message objects from chat
 
 ### Complex Objects
 There are a few configuration options that utilize more complex objects. The following configuration is in object notation.

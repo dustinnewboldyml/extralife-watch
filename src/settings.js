@@ -65,11 +65,13 @@ const defaults = {
 	 * Verbose is the amount of information that is logged into the console as the
 	 * application is running. There are three different settings here.
 	 *
-	 * 0 = No verbose logging. Can also be set to false or null
-	 * 1 = Logs chat and donation updates
-	 * 2 = Logs everything, including timer updates, ExtraLife API response, etc.
+	 * 0 = Minimal output
+	 * 1 = Useful information (chat, donations, etc.) (Default)
+	 * 2 = Verbose logging, including connection information.
+	 * 3 = Debug information, including API responses
+	 * 4 = Increased debugging, including raw message objects from chat
 	 */
-	verbose: false,
+	verbose: 1,
 
 	/**
 	 * Sets whether or not the timestamps are output for every system output.
