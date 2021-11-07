@@ -56,13 +56,15 @@ const tick = () => {
 						false
 					);
 
-					notifier.notify(
-						{
-							title: `ExtraLife Donation – \$${amount}`,
-							message: `${name} ➤ ${donation.recipientName}\n\$${amount}\n${message}`,
-							icon: path.join(__dirname, 'assets/coin.png'),
-						}
-					);
+					if ( config.alerts.notifications ) {
+						notifier.notify(
+							{
+								title: `ExtraLife Donation – \$${amount}`,
+								message: `${name} ➤ ${donation.recipientName}\n\$${amount}\n${message}`,
+								icon: path.join(__dirname, 'assets/coin.png'),
+							}
+						);
+					}
 
 					// Output the final message into chat
 					log(
