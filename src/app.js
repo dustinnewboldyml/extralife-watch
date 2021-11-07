@@ -1,20 +1,19 @@
 // Load rest of requirements now that config is verified
-let player = require('play-sound');
+let player;
 const path = require('path');
 const el = require('./extralife');
 const log = require('./log');
 const config = require('./settings');
 const notifier = require('node-notifier');
 
-
-if (config.alerts.sound.enabled) player = player((opts = {}));
+if (config.alerts.sound.enabled) player = require('play-sound')((opts = {}));
 
 let firstRun = true;
 log('Running ExtraLife scripts!');
 log(config, 3);
 
 const logColor = (colorNumber, output) => {
-	if ( config.logColors ) {
+	if (config.logColors) {
 		return `\x1b[${colorNumber}m${output}\x1b[0m`;
 	}
 
@@ -43,13 +42,13 @@ const tick = () => {
 					'latest-combined'
 				);
 
-				if ( firstRun ) {
+				if (firstRun) {
 					firstRun = false;
 					log(`Total Donated: \$${donations.stats.total}`);
 					log(`Average Donations: \$${donations.stats.average}`);
 					log(`Total Donators: ${donations.stats.donators}`);
 					log(`Total Donations: ${donations.stats.donations}`);
-                    setTimeout(tick, config.interval * 1000);
+					setTimeout(tick, config.interval * 1000);
 					return;
 				}
 
@@ -58,20 +57,14 @@ const tick = () => {
 					const amount = donation.amount;
 					const message = donation.message || '';
 
-					el.write(
-						`#donation (${name}) ${message}`,
-						'chat',
-						false
-					);
+					el.write(`#donation (${name}) ${message}`, 'chat', false);
 
-					if ( config.alerts.notifications ) {
-						notifier.notify(
-							{
-								title: `ExtraLife Donation – \$${amount}`,
-								message: `${name} ➤ ${donation.recipientName}\n\$${amount}\n${message}`,
-								icon: path.join(__dirname, 'assets/coin.png'),
-							}
-						);
+					if (config.alerts.notifications) {
+						notifier.notify({
+							title: `ExtraLife Donation – \$${amount}`,
+							message: `${name} ➤ ${donation.recipientName}\n\$${amount}\n${message}`,
+							icon: path.join(__dirname, 'assets/coin.png'),
+						});
 					}
 
 					// Output the final message into chat
@@ -79,18 +72,35 @@ const tick = () => {
 						`
 ${logColor(33, `        ██████████`)}
 ${logColor(33, `    ██████      ██████`)}
-${logColor(33, `  ████    ░░░░░░░░░░████`)}       ${logColor(36, `~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`)}
-${logColor(33, `  ██  ░░░░  ░░░░██░░░░██`)}              ${logColor(36, `NEW DONATION`)}
-${logColor(33, `████  ░░░░  ░░░░██░░░░████`)}     ${logColor(36, `~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`)}
+${logColor(33, `  ████    ░░░░░░░░░░████`)}       ${logColor(
+							36,
+							`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+						)}
+${logColor(33, `  ██  ░░░░  ░░░░██░░░░██`)}              ${logColor(
+							36,
+							`NEW DONATION`
+						)}
+${logColor(33, `████  ░░░░  ░░░░██░░░░████`)}     ${logColor(
+							36,
+							`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+						)}
 ${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}
 ${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}     \$${amount}
-${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}     ${name} ➤ ${donation.recipientName}
+${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}     ${name} ➤ ${
+							donation.recipientName
+						}
 ${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}     ${message}
 ${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}
 ${logColor(33, `██  ░░░░░░  ░░░░██░░░░░░██`)}
-${logColor(33, `████  ░░░░  ░░░░██░░░░████`)}     Total: \$${donations.stats.total}
-${logColor(33, `  ██  ░░░░████████░░░░██`)}       Average: \$${donations.stats.average}
-${logColor(33, `  ████  ░░░░░░░░░░░░███`)}        Total Donations: ${donations.stats.donations}
+${logColor(33, `████  ░░░░  ░░░░██░░░░████`)}     Total: \$${
+							donations.stats.total
+						}
+${logColor(33, `  ██  ░░░░████████░░░░██`)}       Average: \$${
+							donations.stats.average
+						}
+${logColor(33, `  ████  ░░░░░░░░░░░░███`)}        Total Donations: ${
+							donations.stats.donations
+						}
 ${logColor(33, `    ██████░░░░░░█████`)}
 ${logColor(33, `        ██████████`)}`,
 						1
@@ -106,7 +116,12 @@ ${logColor(33, `        ██████████`)}`,
 			setTimeout(tick, config.interval * 1000);
 		})
 		.catch((error) => {
-			log(`${logColor(31, error)} ${logColor(33, `– Will retry in ${config.retry} seconds`)}`);
+			log(
+				`${logColor(31, error)} ${logColor(
+					33,
+					`– Will retry in ${config.retry} seconds`
+				)}`
+			);
 			setTimeout(tick, config.retry * 1000);
 		});
 };
