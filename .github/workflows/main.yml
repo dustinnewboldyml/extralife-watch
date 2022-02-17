@@ -48,7 +48,7 @@ jobs:
                     "type": "plain_text",
                     "text": "View PR"
                   },
-                  "url": "https://www.example.com"
+                  "url": "${{ github.event.pull_request.html_url }}"
                 }
               ]
             }
