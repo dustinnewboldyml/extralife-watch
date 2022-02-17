@@ -6,7 +6,9 @@ on:
 
 jobs:
   build:
-    if: ${{ github.event.label.name == 'bug' }}
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'need product review') &&
+      !contains(github.event.pull_request.labels.*.name, 'wip')
     runs-on: ubuntu-latest
 
     steps:
