@@ -10,52 +10,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Dump GitHub context
+      id: github_context_step
+      run: echo '${{ toJSON(github) }}'
+    - name: Dump job context
+      run: echo '${{ toJSON(job) }}'
+    - name: Dump steps context
+      run: echo '${{ toJSON(steps) }}'
+    - name: Dump runner context
+      run: echo '${{ toJSON(runner) }}'
+    - name: Dump strategy context
+      run: echo '${{ toJSON(strategy) }}'
+    - name: Dump matrix context
+      run: echo '${{ toJSON(matrix) }}'
+
     - uses: actions/checkout@v2
     - name: Notify Slack
       run: |
         curl -X POST \
         -H 'Content-type: application/json' \
         --data '{
-          "text": "New PR to review",
+          "text": "A new PR is available for product review",
           "blocks": [
             {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "Danny Torrence left the following review for your property:"
-              }
-            },
-            {
-              "type": "section",
-              "block_id": "section567",
-              "text": {
-                "type": "mrkdwn",
-                "text": "<https://example.com|Overlook Hotel> \n :star: \n Doors had too many axe holes, guest in room 237 was far too rowdy, whole place felt stuck in the 1920s."
-              },
-              "accessory": {
-                "type": "image",
-                "image_url": "https://is5-ssl.mzstatic.com/image/thumb/Purple3/v4/d3/72/5c/d3725c8f-c642-5d69-1904-aa36e4297885/source/256x256bb.jpg",
-                "alt_text": "Haunted hotel image"
-              }
-            },
-            {
-              "type": "section",
-              "block_id": "section789",
-              "fields": [
-                {
-                  "type": "mrkdwn",
-                  "text": "*Average Rating*\n1.0"
-                }
-              ]
-            },
-            {
-              "type": "button",
+              "type": "header",
               "text": {
                 "type": "plain_text",
-                "text": "View PR"
-              },
-              "action_id": "view_pr",
-              "value": "https://www.example.com"
+                "text": "${{ github.ref_name }}"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "A new PR is available for product review"
+              }
+            },
+            {
+              "type": "actions",
+              "block_id": "actions1",
+              "elements": [
+                {
+                  "type": "button",
+                  "action_id": "view_pr",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "View PR"
+                  },
+                  "url": "https://www.example.com"
+                }
+              ]
             }
           ]
         }' \
