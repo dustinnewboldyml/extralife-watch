@@ -11,5 +11,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Notify Slack
+      run: |
+        curl -X POST \
+        -H 'Content-type: application/json' \
+        --data '{"text":"Hello, World!"}' \
+        https://hooks.slack.com/services/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
